@@ -3,7 +3,7 @@
 #              for resources. You can use terraform-labels to implement a strict naming
 #              convention.
 module "labels" {
-  source  = "git::git@github.com:slovink/terraform-aws-labels.git"
+  source = "git::git@github.com:slovink/terraform-aws-labels.git?ref=1.0.0"
 
   name        = var.name
   environment = var.environment
@@ -14,15 +14,16 @@ module "labels" {
 
 #Module      : VPC
 #Description : Terraform module to create VPC resource on AWS.
+#tfsec:ignore:aws-ec2-require-vpc-flow-logs-for-all-vpcs
+#tfsec:ignore:aws-ec2-require-vpc-flow-logs-for-all-vpcs
 resource "aws_vpc" "default" {
   count = var.vpc_enabled ? 1 : 0
 
-  cidr_block                       = var.cidr_block
-  instance_tenancy                 = var.instance_tenancy
-  enable_dns_hostnames             = var.enable_dns_hostnames
-  enable_dns_support               = var.enable_dns_support
-  enable_classiclink               = var.enable_classiclink
-  enable_classiclink_dns_support   = var.enable_classiclink_dns_support
+  cidr_block           = var.cidr_block
+  instance_tenancy     = var.instance_tenancy
+  enable_dns_hostnames = var.enable_dns_hostnames
+  enable_dns_support   = var.enable_dns_support
+  #  enable_classiclink               = var.enable_classiclink
   ipv4_ipam_pool_id                = var.ipv4_ipam_pool_id
   ipv4_netmask_length              = var.ipv4_ipam_pool_id != "" ? var.ipv4_netmask_length : null
   assign_generated_ipv6_cidr_block = true
@@ -42,7 +43,7 @@ resource "aws_vpc" "default" {
 resource "aws_internet_gateway" "default" {
   count = var.vpc_enabled ? 1 : 0
 
-  vpc_id = join("", aws_vpc.default.*.id)
+  vpc_id = join("", aws_vpc.default[*].id)
   tags = merge(
     module.labels.tags,
     {
@@ -55,7 +56,7 @@ resource "aws_internet_gateway" "default" {
 resource "aws_vpc_ipv4_cidr_block_association" "secondary_cidr" {
 
   for_each   = toset(var.additional_cidr_block)
-  vpc_id     = join("", aws_vpc.default.*.id)
+  vpc_id     = join("", aws_vpc.default[*].id)
   cidr_block = each.key
 }
 
@@ -64,7 +65,7 @@ resource "aws_vpc_ipv4_cidr_block_association" "secondary_cidr" {
 resource "aws_default_security_group" "default" {
   count = var.vpc_enabled && var.restrict_default_sg == true ? 1 : 0
 
-  vpc_id = join("", aws_vpc.default.*.id)
+  vpc_id = join("", aws_vpc.default[*].id)
 
   dynamic "ingress" {
     for_each = var.default_security_group_ingress
@@ -126,15 +127,15 @@ resource "aws_vpc_dhcp_options" "vpc_dhcp" {
 resource "aws_vpc_dhcp_options_association" "this" {
   count = var.vpc_enabled && var.enable_dhcp_options ? 1 : 0
 
-  vpc_id          = join("", aws_vpc.default.*.id)
-  dhcp_options_id = join("", aws_vpc_dhcp_options.vpc_dhcp.*.id)
+  vpc_id          = join("", aws_vpc.default[*].id)
+  dhcp_options_id = join("", aws_vpc_dhcp_options.vpc_dhcp[*].id)
 }
 
 
 resource "aws_egress_only_internet_gateway" "default" {
   count = var.vpc_enabled && var.enabled_ipv6_egress_only_internet_gateway ? 1 : 0
 
-  vpc_id = join("", aws_vpc.default.*.id)
+  vpc_id = join("", aws_vpc.default[*].id)
   tags   = module.labels.tags
 }
 
@@ -147,6 +148,6 @@ resource "aws_flow_log" "vpc_flow_log" {
   log_destination      = var.s3_bucket_arn
   log_destination_type = "s3"
   traffic_type         = var.traffic_type
-  vpc_id               = join("", aws_vpc.default.*.id)
+  vpc_id               = join("", aws_vpc.default[*].id)
   tags                 = module.labels.tags
 }
