@@ -16,7 +16,7 @@
 <a href="https://www.terraform.io">
   <img src="https://img.shields.io/badge/Terraform-v1.7.0-green" alt="Terraform">
 </a>
-<a href="https://github.com/slovink/terraform-aws-iam-user/blob/vinod/LICENSE">
+<a href="https://github.com/slovink/terraform-aws-network/blob/vinod/LICENSE">
   <img src="https://img.shields.io/badge/License-APACHE-blue.svg" alt="Licence">
 </a>
 
