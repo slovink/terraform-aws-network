@@ -1,28 +1,45 @@
 
 
-<p align="center"> <img src="https://user-images.githubusercontent.com/50652676/62349836-882fef80-b51e-11e9-99e3-7b974309c7e3.png" width="100" height="100"></p>
+<<p align="center"> <img src="https://user-images.githubusercontent.com/50652676/62349836-882fef80-b51e-11e9-99e3-7b974309c7e3.png" width="100" height="100"></p>
 
 
 <h1 align="center">
-    Terraform AWS VPC
+    Terraform AWS VPC-PEERING
 </h1>
 
 <p align="center" style="font-size: 1.2rem;">
-    Terraform module to create VPC resource on AWS.
+    Terraform module to create vpc-peering resource on AWS.
      </p>
 
 <p align="center">
 
 <a href="https://www.terraform.io">
-  <img src="https://img.shields.io/badge/Terraform-v1.1.7-green" alt="Terraform">
+  <img src="https://img.shields.io/badge/Terraform-v1.7.0-green" alt="Terraform">
 </a>
-<a href="LICENSE.md">
+<a href="https://github.com/slovink/terraform-aws-iam-user/blob/vinod/LICENSE">
   <img src="https://img.shields.io/badge/License-APACHE-blue.svg" alt="Licence">
 </a>
 
 
 
+</p>
+<p align="center">
 
+<a href='https://www.facebook.com/Slovink.in=https://github.com/slovink/terraform-aws-network'>
+  <img title="Share on Facebook" src="https://user-images.githubusercontent.com/50652676/62817743-4f64cb80-bb59-11e9-90c7-b057252ded50.png" />
+</a>
+<a href='https://www.linkedin.com/company/101534993/admin/feed/posts/=https://github.com/slovink/terraform-aws-network'>
+  <img title="Share on LinkedIn" src="https://user-images.githubusercontent.com/50652676/62817742-4e339e80-bb59-11e9-87b9-a1f68cae1049.png" />
+</a>
+
+
+
+- [Introduction](#introduction)
+- [Usage](#usage)
+- [Module Inputs](#module-inputs)
+- [Module Outputs](#module-outputs)
+- [Examples](#examples)
+- [License](#license)
 
 
 ## Prerequisites
@@ -32,23 +49,19 @@ This module has a few dependencies:
 - [Terraform 1.x.x](https://learn.hashicorp.com/terraform/getting-started/install.html)
 - [Go](https://golang.org/doc/install)
 
-
-
-
-
-
-
 ## Examples
+For detailed examples on how to use this module, please refer to the [Examples](https://github.com/slovink/terraform-aws-network/tree/vinod/_example) directory within this repository.
 
+## License
+This Terraform module is provided under the '[License Name]' License. Please see the [LICENSE](https://github.com/slovink/terraform-aws-network/blob/vinod/LICENSE) file for more details.
 
-**IMPORTANT:** Since the `master` branch used in `source` varies based on new modifications, we suggest that you use the release versions [here](https://github.com/slovink/terraform-aws-vpc/releases).
 
 
 ### Simple Example
 Here is an example of how you can use this module in your inventory structure:
   ```hcl
 module "vpc" {
-  source = "../"
+  source = "https://github.com/slovink/terraform-aws-network.git?ref=v1.0.0"
 
   name        = "vpc"
   environment = "example"
@@ -68,9 +81,9 @@ module "vpc" {
 
 
 ## Feedback
-If you come accross a bug or have any feedback, please log it in our [issue tracker](https://github.com/slovink/terraform-aws-vpc/issues), or feel free to drop us an email at [devops@slovink.com](mailto:devops@slovink.com).
+If you come accross a bug or have any feedback, please log it in our [issue tracker](https://github.com/slovink/terraform-aws-network/issues), or feel free to drop us an email at [conact@slovink.com](conact@slovink.com).
 
-If you have found it worth your time, go ahead and give us a ★ on [our GitHub](https://github.com/slovink/terraform-aws-vpc)!
+If you have found it worth your time, go ahead and give us a ★ on [our GitHub](https://github.com/slovink/terraform-aws-network)!
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
