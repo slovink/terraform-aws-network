@@ -30,17 +30,17 @@ variable "managedby" {
   description = ""
 }
 
-variable "attributes" {
-  type        = list(any)
-  default     = []
-  description = "Additional attributes (e.g. `1`)."
-}
+#variable "attributes" {
+#  type        = list(any)
+#  default     = []
+#  description = "Additional attributes (e.g. `1`)."
+#}
 
-variable "tags" {
-  type        = map(any)
-  default     = {}
-  description = "Additional tags (e.g. map(`BusinessUnit`,`XYZ`)."
-}
+#variable "tags" {
+#  type        = map(any)
+#  default     = {}
+#  description = "Additional tags (e.g. map(`BusinessUnit`,`XYZ`)."
+#}
 
 #Module      : VPC
 #Description : Terraform VPC module variables.
@@ -57,9 +57,8 @@ variable "restrict_default_sg" {
 }
 
 variable "cidr_block" {
-  type        = string
-  default     = ""
-  description = "CIDR for the VPC."
+  type    = string
+  default = "10.0.0.0/16"
 }
 
 variable "additional_cidr_block" {
@@ -86,17 +85,17 @@ variable "enable_dns_support" {
   description = "A boolean flag to enable/disable DNS support in the VPC."
 }
 
-variable "enable_classiclink" {
-  type        = bool
-  default     = false
-  description = "A boolean flag to enable/disable ClassicLink for the VPC."
-}
+#variable "enable_classiclink" {
+#  type        = bool
+#  default     = false
+#  description = "A boolean flag to enable/disable ClassicLink for the VPC."
+#}
 
-variable "enable_classiclink_dns_support" {
-  type        = bool
-  default     = false
-  description = "A boolean flag to enable/disable ClassicLink DNS Support for the VPC."
-}
+#variable "enable_classiclink_dns_support" {
+#  type        = bool
+#  default     = false
+#  description = "A boolean flag to enable/disable ClassicLink DNS Support for the VPC."
+#}
 
 #Module      : FLOW LOG
 #Description : Terraform flow log module variables.
